@@ -18,29 +18,45 @@ NC='\033[0m' # No Color
 BOLD='\033[1m'
 
 # =============================================================================
-# FUNÇÃO AUXILIAR: Mover para lixeira (mais seguro que rm -rf)
+# FUNÇÃO AUXILIAR: Mover para lixeira via linha de comando (sem GUI)
 # =============================================================================
 _macutils_mover_para_lixeira() {
     local arquivo="$1"
     if [[ -e "$arquivo" ]]; then
-        # Usa osascript para mover para lixeira (mais seguro)
-        osascript -e "tell application \"Finder\" to delete POSIX file \"$arquivo\"" 2>/dev/null
-        if [[ $? -eq 0 ]]; then
-            echo -e "${GREEN}✓${NC} Movido para lixeira: $arquivo"
+        # Gera nome único para evitar conflitos na lixeira
+        local basename=$(basename "$arquivo")
+        local timestamp=$(date +%Y%m%d_%H%M%S)
+        local destino="$HOME/.Trash/${basename}_${timestamp}"
+        
+        # Tenta mover com mv primeiro
+        if mv "$arquivo" "$destino" 2>/dev/null; then
+            echo -e "${GREEN}✓${NC} Movido para lixeira: $basename"
             return 0
-        else
-            # Fallback: mv para ~/.Trash
-            local basename=$(basename "$arquivo")
-            local destino="$HOME/.Trash/${basename}_$(date +%s)"
-            mv "$arquivo" "$destino" 2>/dev/null
-            if [[ $? -eq 0 ]]; then
-                echo -e "${GREEN}✓${NC} Movido para lixeira: $arquivo"
+        fi
+        
+        # Se falhou, tenta com sudo
+        echo -e "${YELLOW}⚠${NC}  Tentando com privilégios elevados..."
+        if sudo mv "$arquivo" "$destino" 2>/dev/null; then
+            echo -e "${GREEN}✓${NC} Movido para lixeira: $basename (com sudo)"
+            return 0
+        fi
+        
+        # Se ainda falhou, tenta com rm -rf como último recurso (com confirmação)
+        echo -e "${RED}✗${NC} Não foi possível mover para lixeira: $basename"
+        echo -ne "${YELLOW}⚠${NC}  Deseja tentar remover permanentemente? ${RED}(CUIDADO!)${NC} (s/N): "
+        read -r resposta
+        if [[ "$resposta" =~ ^[Ss]$ ]]; then
+            if sudo rm -rf "$arquivo" 2>/dev/null; then
+                echo -e "${GREEN}✓${NC} Removido permanentemente: $basename"
                 return 0
             else
-                echo -e "${RED}✗${NC} Erro ao mover: $arquivo"
+                echo -e "${RED}✗${NC} Falha ao remover: $basename"
                 return 1
             fi
         fi
+        
+        echo -e "${YELLOW}🚫${NC} Arquivo mantido em: $arquivo"
+        return 1
     fi
 }
 
@@ -86,15 +102,17 @@ _macutils_verificar_arquivo_app() {
 _macutils_coletar_apps_instalados() {
     local apps=()
     
-    # Apps em /Applications
-    for app in /Applications/*.app; do
-        if [[ -d "$app" ]]; then
-            apps+=($(basename "$app" .app))
-        fi
-    done
+    # Apps em /Applications (só processa se existir algum)
+    if [[ -n $(ls /Applications/*.app 2>/dev/null) ]]; then
+        for app in /Applications/*.app; do
+            if [[ -d "$app" ]]; then
+                apps+=($(basename "$app" .app))
+            fi
+        done
+    fi
     
-    # Apps em ~/Applications
-    if [[ -d "$HOME/Applications" ]]; then
+    # Apps em ~/Applications (só processa se existir algum)
+    if [[ -d "$HOME/Applications" ]] && [[ -n $(ls "$HOME"/Applications/*.app 2>/dev/null) ]]; then
         for app in "$HOME"/Applications/*.app; do
             if [[ -d "$app" ]]; then
                 apps+=($(basename "$app" .app))
