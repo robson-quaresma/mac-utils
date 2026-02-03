@@ -1,31 +1,16 @@
 # 🛠️ Macbook Utilitários
 
-> **Desinstale apps completamente e limpe seu Mac em 1 clique ou 1 comando!**
+> **Desinstale apps completamente e limpe seu Mac com 1 comando!**
 
 [![macOS](https://img.shields.io/badge/macOS-10.14%2B-blue)](https://www.apple.com/macos)
-[![Instalação](https://img.shields.io/badge/Instalação-1%20clique%20ou%201%20comando-green)](https://github.com/seu-usuario/mac-utils)
+[![Instalação](https://img.shields.io/badge/Instalação-1%20comando-green)](https://github.com/seu-usuario/mac-utils)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 ---
 
-## 🚀 Instalação (Escolha 1 das 2 opções)
+## 🚀 Instalação (1 Comando)
 
-### ✅ Opção 1: Instalador Clicável (Recomendado - Sem Terminal!)
-
-**Perfeito para quem não quer usar linha de comando.**
-
-1. 📥 [Baixe o instalador](https://github.com/seu-usuario/mac-utils/releases/latest/download/MacbookUtilitarios.pkg)
-2. 🖱️ Clique duas vezes no arquivo `.pkg` baixado
-3. ✅ Clique em "Continuar" e "Instalar"
-4. 🎉 **Pronto!** Abra um novo terminal e use os comandos
-
-**Tempo total:** 30 segundos | **Nível de dificuldade:** ⭐ (Muito fácil)
-
----
-
-### ⚡ Opção 2: 1 Comando no Terminal (Para quem gosta de terminal)
-
-**Copie, cole e aperte Enter:**
+**Copie, cole no terminal e aperte Enter:**
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/seu-usuario/mac-utils/main/install.sh | bash
@@ -36,58 +21,58 @@ curl -fsSL https://raw.githubusercontent.com/seu-usuario/mac-utils/main/install.
 source ~/.zshrc
 ```
 
-**Tempo total:** 10 segundos | **Nível de dificuldade:** ⭐ (Muito fácil)
+**Pronto!** ✅
 
 ---
 
-## 📱 O que você ganha?
+## 📱 Como Usar
 
-Após instalar, abra o terminal e digite:
+### Ver todos os comandos disponíveis:
 
 ```bash
 mac_help
 ```
 
-**Vai mostrar todos os comandos disponíveis:**
+### Principais comandos:
 
 | Comando | O que faz | Exemplo |
 |---------|-----------|---------|
-| `desinstalar` | Remove app + todos os arquivos escondidos | `desinstalar` (escolhe da lista) |
-| `desinstalar Spotify` | Remove um app específico | `desinstalar "Google Chrome"` |
+| `desinstalar` | Modo interativo - escolhe apps da lista | `desinstalar` |
+| `desinstalar "Nome do App"` | Remove um app específico | `desinstalar "Google Chrome"` |
 | `limpar-tudo` | Limpa caches, logs e libera espaço | `limpar-tudo` |
 | `matar-porta 3000` | Libera uma porta em uso | `matar-porta 8080` |
-| `listar-apps` | Mostra todos os apps instalados | `listar-apps --size` |
+| `listar-apps` | Lista todos os apps instalados | `listar-apps` |
 
 ---
 
 ## 🎯 Exemplos Rápidos
 
-### Desinstalar um app completamente (incluindo arquivos escondidos)
+### Desinstalar apps:
 
 ```bash
-# Modo interativo - escolhe da lista
+# Escolhe da lista interativa
 desinstalar
 
-# Remove específico
-desinstalar "Nome do App"
+# Remove app específico
+desinstalar "Spotify"
 
-# Preview primeiro (mostra o que vai remover)
+# Ver o que será removido antes
 desinstalar-preview "Nome do App"
 ```
 
-### Limpar o sistema
+### Limpar o sistema:
 
 ```bash
 # Limpeza completa guiada
 limpar-tudo
 
-# Ou algo específico
-limpar-caches      # Limpa caches por app
+# Limpar algo específico
+limpar-caches      # Limpa caches
 limpar-logs        # Remove logs antigos
 limpar-lixeira     # Esvazia lixeira
 ```
 
-### Desenvolvedores
+### Utilitários para desenvolvedores:
 
 ```bash
 # Liberar porta ocupada
@@ -96,7 +81,7 @@ matar-porta 3000
 # Ver portas em uso
 listar-portas
 
-# Ver uso de disco
+# Ver espaço em disco
 espaco-disco
 ```
 
@@ -105,55 +90,99 @@ espaco-disco
 ## 🛡️ Segurança
 
 ✅ **100% seguro:**
-- Arquivos vão para a **lixeira** (podem ser recuperados)
+- Arquivos vão para a **lixeira** (recuperáveis)
 - **Nunca** remove arquivos do sistema (macOS, apps nativos)
 - **Confirmação** antes de cada remoção
 - **Preview** - você vê o que será removido antes
 
 ---
 
-## ❌ Desinstalação
+## 📦 Instalação Manual (Alternativa)
 
-Mudou de ideia? [Clique aqui para ver como remover](UNINSTALL.md)
+Se preferir, pode instalar manualmente:
 
-Ou execute no terminal:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/mac-utils/main/uninstall.sh | bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/mac-utils.git
+cd mac-utils
+
+# Execute o instalador
+./install.sh
+
+# Recarregue o terminal
+source ~/.zshrc
 ```
 
 ---
 
-## 🤔 Problemas?
+## ❌ Desinstalação
+
+Para remover o Macbook Utilitários:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/seu-usuario/mac-utils/main/uninstall.sh | bash
+```
+
+Ou manualmente:
+- Remova a linha `source ~/.mac-utils/macbook/macbook-utilitarios.sh` do `~/.zshrc`
+- Delete a pasta `~/.mac-utils/`
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+mac-utils/
+├── macbook-utilitarios.sh    # Script principal
+├── install.sh                # Instalador
+├── uninstall.sh              # Desinstalador
+├── README.md                 # Este arquivo
+├── UNINSTALL.md              # Guia de desinstalação
+└── LICENSE                   # Licença MIT
+```
+
+---
+
+## 🆘 Problemas?
 
 ### O comando não funciona?
 
 1. Feche e abra o terminal novamente
 2. Ou execute: `source ~/.zshrc`
 
-### Quer ver todos os comandos?
+### Erro ao instalar?
 
-```bash
-mac_help
-```
+Certifique-se de estar usando o **Terminal** ou **iTerm** com **ZSH** (padrão do macOS moderno).
 
 ### Ainda com problemas?
 
-[Abra uma issue no GitHub](../../issues) - respondemos rápido!
+[Abra uma issue no GitHub](../../issues)
+
+---
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas!
+
+1. Fork o repositório
+2. Crie sua branch (`git checkout -b feature/nova-funcionalidade`)
+3. Commit suas mudanças (`git commit -m 'feat: nova funcionalidade'`)
+4. Push para a branch (`git push origin feature/nova-funcionalidade`)
+5. Abra um Pull Request
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
 
 ---
 
 ## 💝 Gratuito e Open Source
 
-Este software é **100% gratuito** e [código aberto](LICENSE).
+Este software é **100% gratuito** e código aberto.
 
 Se te ajudou, ⭐ **dê uma estrela** no repositório!
-
----
-
-## 📞 Suporte
-
-- 💬 [GitHub Discussions](../../discussions) - Tire dúvidas
-- 🐛 [GitHub Issues](../../issues) - Reporte bugs
 
 ---
 
