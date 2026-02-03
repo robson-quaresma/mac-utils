@@ -3,7 +3,7 @@
 > **Desinstale apps completamente e limpe seu Mac com 1 comando!**
 
 [![macOS](https://img.shields.io/badge/macOS-10.14%2B-blue)](https://www.apple.com/macos)
-[![Instalação](https://img.shields.io/badge/Instalação-1%20comando-green)](https://github.com/seu-usuario/mac-utils)
+[![Instalação](https://img.shields.io/badge/Instalação-1%20comando-green)](https://github.com/seu-usuari/mac-utils)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 ---
@@ -13,7 +13,7 @@
 **Copie, cole no terminal e aperte Enter:**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/mac-utils/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/robson-quaresma/mac-utils/main/install.sh | bash
 ```
 
 **Depois:**
